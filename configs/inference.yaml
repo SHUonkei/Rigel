@@ -1,0 +1,22 @@
+# Inference configuration for the Rigel scorer (Qwen3-VL-2B + LoRA + bottleneck head).
+# Values must match the checkpoint (model.safetensors on the Hugging Face Hub).
+
+model_class: QwenLoRAScoreSmoothing
+model_name: Qwen/Qwen3-VL-2B-Instruct
+attn_implementation: sdpa
+
+# Video / image preprocessing
+num_frames: 8
+max_pixels: 12845056
+
+# Bottleneck head (hidden 2048 -> 256 -> 512 -> num_classes)
+bottleneck_dim: 256
+num_classes: 5
+
+# LoRA
+lora_r: 8
+lora_alpha: 16
+lora_dropout: 0.1
+lora_target_modules:
+  - q_proj
+  - v_proj
